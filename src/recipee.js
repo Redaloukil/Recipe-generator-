@@ -7,6 +7,7 @@ class Recipee extends Component {
     constructor(props){
         super(props);
         this.state={
+            recipies:JSON.parse(localStorage.getItem('recipies')) || [],
             newRecipee:{
                 name :"name",
                 description : "description",
@@ -18,26 +19,32 @@ class Recipee extends Component {
     }
 
     submitRecipee(){
-        let name = this.name.value;
-        let description = this.description;
-        let ingredients = this.state.ingredients;
-        let recipee = {
-            name,
-            description,
-        }
-        this.state.newRecipee.name = recipee.name;
-        this.state.newRecipee.description = recipee.description;
-        this.setState({newRecipee:this.state.newRecipee,})
-        console.log(this.state.newRecipee   );
+            let name = this.name.value;
+            let description = this.description.value;
+            let newRecipee = {
+                
+                name : name,
+                description :description,
+                ingredients:[],
+            }
+            this.state.newRecipee.name = newRecipee.name;
+            this.state.newRecipee.description = newRecipee.description;
+            this.setState({newRecipee})
+            this.state.recipies.push(newRecipee);
+            this.setState({recipies:this.state.recipies});
+            localStorage.setItem('recipies' ,JSON.stringify(this.state.recipies));
+            this.name.value ="";
+            this.description.value ="";
+        
+        
     }
 
     addIngredient(quantity, product) {
   		let newRecipie = this.state.newRecipee;
   		newRecipie.ingredients.push({quantity: quantity, product: product});
-  		this.setState({newRecipie: newRecipie});
-  		console.log(this.state.newRecipee)
+  		this.setState({newRecipie});
 	}
-
+    
     render(){
         return(
             <div>
@@ -58,7 +65,8 @@ class Recipee extends Component {
                         <textarea   className="form-control"
                                     id="description"
                                     ref={(input)=>{this.description = input}}
-                                    rows="5"></textarea>
+                                    rows="5"
+                                    placeholder="Enter the description of the recipee"></textarea>
                         <p className="help-block">Example block-level help text here.</p>
                     </div>
                     <IngredientList recipie={this.state.newRecipee}/>

@@ -9,6 +9,9 @@ label {
   margin-left:5px;
 }
 
+a {
+  cursor: pointer;
+}
 .content {
   background-color:#f4f4f4;
   color:#333;

@@ -11,6 +11,9 @@ class Ingredient extends Component {
     }
     // add new Ingredient in ingredients list
     addIngredientList(){
+        if(this.quantity.value ==="" || this.product.value ===""){
+            return 0;
+        }
         this.props.addIngredient(this.quantity.value , this.product.value);
         this.quantity.value = "";
 		this.product.value = "";
