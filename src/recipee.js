@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+
+import Dropzone from 'react-dropzone';
+import request from 'superagent'
+
 import Ingredient from './ingredient'
 import IngredientList from './ingredient-list';
+
+
 
 
 class Recipee extends Component {
@@ -16,6 +22,7 @@ class Recipee extends Component {
         };
         this.submitRecipee = this.submitRecipee.bind(this);
         this.addIngredient = this.addIngredient.bind(this);
+        this.onImageDrop = this.onImageDrop.bind(this);
     }
 
     submitRecipee(){
@@ -43,7 +50,10 @@ class Recipee extends Component {
   		let newRecipie = this.state.newRecipee;
   		newRecipie.ingredients.push({quantity: quantity, product: product});
   		this.setState({newRecipie});
-	}
+    }
+    onImageDrop(){
+
+    }
     
     render(){
         return(
@@ -52,6 +62,9 @@ class Recipee extends Component {
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur non quisquam veniam quas! Doloremque reprehenderit deserunt, iste ea voluptas earum velit corrupti placeat, nostrum atque rem nam id, cum in?</p>
                 <br/>
                 <form>
+                <Dropzone multiple={false} accept="image/*" onDrop={this.onImageDrop}>
+                    <p>Drop an image or click to select a file to upload.</p>
+                </Dropzone>
                     <div className="form-group">
                         <label>Recipee Name</label>
                         <input  type="text"
